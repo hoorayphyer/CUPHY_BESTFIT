@@ -1,6 +1,19 @@
-Function CUPHYS_BESTFIT(xdata As Range, xerror As Range, ydata As Range, yerror As Range) As Variant
+Function CUPHYS_BestFit(xdata As Range, xerror As Range, ydata As Range, yerror As Range) As Variant
+    'Call CUPHYS_BestFit_Plot(xdata, xerror, ydata, yerror)
+    Dim x As Integer
+    Set x = 0
+    If x = 0 Then
+       CUPHYS_BestFit = 9876
+       Set x = 1
+    End If
+    CUPHYS_BestFit = 1
+    'CUPHYS_BestFit = LinearLeastChiSquaredFit(xdata, xerror, ydata, yerror)
+    'CUPHYS_BestFit = Application.ActiveCell.Row
+End Function
 
-'PART ONE : Minimize Chi Squared to Find Slope and Intercept
+
+Function LinearLeastChiSquaredFit(xdata As Range, xerror As Range, ydata As Range, yerror As Range) As Variant
+'Minimize Chi Squared to Find Slope and Intercept
     Dim x2s2 As Double
     Dim xs2 As Double
     Dim ys2 As Double
@@ -52,55 +65,55 @@ Function CUPHYS_BESTFIT(xdata As Range, xerror As Range, ydata As Range, yerror 
     results(2, 4) = bf_error_intercept
 
     'Array formulas must be entered with Ctrl + Shift + Enter rather than just the Enter key.
-    CUPHYS_BESTFIT = results
-
-'PART TWO : Plot
-
+    LinearLeastChiSquaredFit = results
 End Function
 
-Function ttt()
+Function ttt() As Variant
+Dim results(1 To 2, 1 To 4) As Variant
+    results(1, 1) = "1"
+    results(2, 1) = 2
+    results(1, 2) = 3
+    results(2, 2) = 4
+    results(1, 3) = 5
+    results(2, 3) = 6
+    results(1, 4) = 7
+    results(2, 4) = 8
+    ttt = results
+End Function
 
-    Range("A2:A6,C2:C6").Select
-    Range("C2").Activate
+Function CUPHYS_BestFit_Plot(xdata As Range, xerror As Range, ydata As Range, yerror As Range)
+
     ActiveSheet.Shapes.AddChart2(240, xlXYScatter).Select
-    ActiveChart.SetSourceData Source:=Range("Sheet1!$A$2:$A$6,Sheet1!$C$2:$C$6")
+    ActiveChart.SetSourceData Source:=Union(xdata, ydata)
     ActiveChart.SetElement (msoElementPrimaryCategoryAxisTitleAdjacentToAxis)
     ActiveChart.SetElement (msoElementPrimaryValueAxisTitleAdjacentToAxis)
-    ActiveChart.Axes(xlValue).HasTitle = True
-    ActiveChart.Axes(xlCategory).AxisTitle.Select
-    Application.CommandBars("Format Object").Visible = False
-    ActiveChart.ApplyDataLabels
-    ActiveChart.FullSeriesCollection(1).DataLabels.Select
-    Selection.ShowCategoryName = True
-    Selection.Position = xlLabelPositionAbove
-   
-    Application.CommandBars("Format Object").Visible = False
-    ActiveChart.FullSeriesCollection(1).HasErrorBars = True
-    ' this line below
-    'ActiveChart.FullSeriesCollection(1).ErrorBars.Select
-    'ActiveChart.FullSeriesCollection(1).ErrorBar Direction:=xlY, Include:= _
-        xlBoth, Type:=xlCustom, Amount:=0
-    'ActiveChart.FullSeriesCollection(1).ErrorBars.Select
-    With ActiveChart.FullSeriesCollection(1)
-        .ErrorBar Direction:=xlX, Include:= _xlBoth,
-                  Type:=xlCustom,_
-                  Amount:=ActiveSheet.Range("D2:D6"),_
-                  MinusValues:=ActiveSheet!R2C4:R6C4
-    End With
-    'ActiveChart.FullSeriesCollection(1).ErrorBars.Select
-   
-    Application.CommandBars("Format Object").Visible = False
     ActiveChart.SetElement (msoElementPrimaryValueGridLinesMinorMajor)
     ActiveChart.SetElement (msoElementPrimaryCategoryGridLinesMinorMajor)
+    'error bars
+    ActiveChart.FullSeriesCollection(1).HasErrorBars = True
+    ActiveChart.FullSeriesCollection(1).HasErrorBars = True
+    ActiveChart.FullSeriesCollection(1).ErrorBar _
+        Direction:=xlX, _
+        Include:=xlBoth, _
+        Type:=xlCustom, _
+        Amount:=xerror, _
+        MinusValues:=xerror
+    ActiveChart.FullSeriesCollection(1).ErrorBar _
+        Direction:=xlY, _
+        Include:=xlBoth, _
+        Type:=xlCustom, _
+        Amount:=yerror, _
+        MinusValues:=yerror
+    'trendline
     ActiveChart.FullSeriesCollection(1).Trendlines.Add
     ActiveChart.FullSeriesCollection(1).Trendlines(1).Select
     Selection.DisplayEquation = True
     Selection.DisplayRSquared = True
-    Application.CommandBars("Format Object").Visible = False
-    Application.CommandBars("Format Object").Visible = False
     ActiveChart.FullSeriesCollection(1).Trendlines(1).DataLabel.Select
     Selection.Left = 246.817
     Selection.Top = 11.022
+    'axes
+    ActiveChart.Axes(xlValue).HasTitle = True
     ActiveChart.Axes(xlCategory).AxisTitle.Select
     ActiveChart.Axes(xlValue, xlPrimary).AxisTitle.Text = "x ( unit )"
     Selection.Format.TextFrame2.TextRange.Characters.Text = "x ( unit )"
@@ -141,7 +154,6 @@ Function ttt()
         .Strike = msoNoStrike
     End With
     ActiveChart.Axes(xlValue).AxisTitle.Select
-    Application.CommandBars("Format Object").Visible = False
     ActiveChart.Axes(xlValue, xlPrimary).AxisTitle.Text = "y ( unit ) "
     Selection.Format.TextFrame2.TextRange.Characters.Text = "y ( unit ) "
     With Selection.Format.TextFrame2.TextRange.Characters(1, 11).ParagraphFormat
@@ -180,7 +192,5 @@ Function ttt()
         .UnderlineStyle = msoNoUnderline
         .Strike = msoNoStrike
     End With
-    ActiveChart.ChartArea.Select
    
-    ttt = 1
 End Function
