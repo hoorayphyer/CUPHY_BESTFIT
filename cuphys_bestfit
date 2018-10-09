@@ -1,16 +1,7 @@
-Function CUPHYS_BestFit(xdata As Range, xerror As Range, ydata As Range, yerror As Range) As Variant
+'Function CUPHYS_BestFit(xdata As Range, xerror As Range, ydata As Range, yerror As Range) As Variant
     'Call CUPHYS_BestFit_Plot(xdata, xerror, ydata, yerror)
-    Dim x As Integer
-    Set x = 0
-    If x = 0 Then
-       CUPHYS_BestFit = 9876
-       Set x = 1
-    End If
-    CUPHYS_BestFit = 1
     'CUPHYS_BestFit = LinearLeastChiSquaredFit(xdata, xerror, ydata, yerror)
-    'CUPHYS_BestFit = Application.ActiveCell.Row
-End Function
-
+'End Function
 
 Function LinearLeastChiSquaredFit(xdata As Range, xerror As Range, ydata As Range, yerror As Range) As Variant
 'Minimize Chi Squared to Find Slope and Intercept
@@ -66,19 +57,6 @@ Function LinearLeastChiSquaredFit(xdata As Range, xerror As Range, ydata As Rang
 
     'Array formulas must be entered with Ctrl + Shift + Enter rather than just the Enter key.
     LinearLeastChiSquaredFit = results
-End Function
-
-Function ttt() As Variant
-Dim results(1 To 2, 1 To 4) As Variant
-    results(1, 1) = "1"
-    results(2, 1) = 2
-    results(1, 2) = 3
-    results(2, 2) = 4
-    results(1, 3) = 5
-    results(2, 3) = 6
-    results(1, 4) = 7
-    results(2, 4) = 8
-    ttt = results
 End Function
 
 Function CUPHYS_BestFit_Plot(xdata As Range, xerror As Range, ydata As Range, yerror As Range)
