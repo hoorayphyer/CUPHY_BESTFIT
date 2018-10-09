@@ -57,3 +57,130 @@ Function CUPHYS_BESTFIT(xdata As Range, xerror As Range, ydata As Range, yerror 
 'PART TWO : Plot
 
 End Function
+
+Function ttt()
+
+    Range("A2:A6,C2:C6").Select
+    Range("C2").Activate
+    ActiveSheet.Shapes.AddChart2(240, xlXYScatter).Select
+    ActiveChart.SetSourceData Source:=Range("Sheet1!$A$2:$A$6,Sheet1!$C$2:$C$6")
+    ActiveChart.SetElement (msoElementPrimaryCategoryAxisTitleAdjacentToAxis)
+    ActiveChart.SetElement (msoElementPrimaryValueAxisTitleAdjacentToAxis)
+    ActiveChart.Axes(xlValue).HasTitle = True
+    ActiveChart.Axes(xlCategory).AxisTitle.Select
+    Application.CommandBars("Format Object").Visible = False
+    ActiveChart.ApplyDataLabels
+    ActiveChart.FullSeriesCollection(1).DataLabels.Select
+    Selection.ShowCategoryName = True
+    Selection.Position = xlLabelPositionAbove
+   
+    Application.CommandBars("Format Object").Visible = False
+    ActiveChart.FullSeriesCollection(1).HasErrorBars = True
+    ' this line below
+    'ActiveChart.FullSeriesCollection(1).ErrorBars.Select
+    'ActiveChart.FullSeriesCollection(1).ErrorBar Direction:=xlY, Include:= _
+        xlBoth, Type:=xlCustom, Amount:=0
+    'ActiveChart.FullSeriesCollection(1).ErrorBars.Select
+    With ActiveChart.FullSeriesCollection(1)
+        .ErrorBar Direction:=xlX, Include:= _xlBoth,
+                  Type:=xlCustom,_
+                  Amount:=ActiveSheet.Range("D2:D6"),_
+                  MinusValues:=ActiveSheet!R2C4:R6C4
+    End With
+    'ActiveChart.FullSeriesCollection(1).ErrorBars.Select
+   
+    Application.CommandBars("Format Object").Visible = False
+    ActiveChart.SetElement (msoElementPrimaryValueGridLinesMinorMajor)
+    ActiveChart.SetElement (msoElementPrimaryCategoryGridLinesMinorMajor)
+    ActiveChart.FullSeriesCollection(1).Trendlines.Add
+    ActiveChart.FullSeriesCollection(1).Trendlines(1).Select
+    Selection.DisplayEquation = True
+    Selection.DisplayRSquared = True
+    Application.CommandBars("Format Object").Visible = False
+    Application.CommandBars("Format Object").Visible = False
+    ActiveChart.FullSeriesCollection(1).Trendlines(1).DataLabel.Select
+    Selection.Left = 246.817
+    Selection.Top = 11.022
+    ActiveChart.Axes(xlCategory).AxisTitle.Select
+    ActiveChart.Axes(xlValue, xlPrimary).AxisTitle.Text = "x ( unit )"
+    Selection.Format.TextFrame2.TextRange.Characters.Text = "x ( unit )"
+    With Selection.Format.TextFrame2.TextRange.Characters(1, 10).ParagraphFormat
+        .TextDirection = msoTextDirectionLeftToRight
+        .Alignment = msoAlignCenter
+    End With
+    With Selection.Format.TextFrame2.TextRange.Characters(1, 1).Font
+        .BaselineOffset = 0
+        .Bold = msoFalse
+        .NameComplexScript = "+mn-cs"
+        .NameFarEast = "+mn-ea"
+        .Fill.Visible = msoTrue
+        .Fill.ForeColor.RGB = RGB(89, 89, 89)
+        .Fill.Transparency = 0
+        .Fill.Solid
+        .Size = 10
+        .Italic = msoFalse
+        .Kerning = 12
+        .Name = "+mn-lt"
+        .UnderlineStyle = msoNoUnderline
+        .Strike = msoNoStrike
+    End With
+    With Selection.Format.TextFrame2.TextRange.Characters(2, 9).Font
+        .BaselineOffset = 0
+        .Bold = msoFalse
+        .NameComplexScript = "+mn-cs"
+        .NameFarEast = "+mn-ea"
+        .Fill.Visible = msoTrue
+        .Fill.ForeColor.RGB = RGB(89, 89, 89)
+        .Fill.Transparency = 0
+        .Fill.Solid
+        .Size = 10
+        .Italic = msoFalse
+        .Kerning = 12
+        .Name = "+mn-lt"
+        .UnderlineStyle = msoNoUnderline
+        .Strike = msoNoStrike
+    End With
+    ActiveChart.Axes(xlValue).AxisTitle.Select
+    Application.CommandBars("Format Object").Visible = False
+    ActiveChart.Axes(xlValue, xlPrimary).AxisTitle.Text = "y ( unit ) "
+    Selection.Format.TextFrame2.TextRange.Characters.Text = "y ( unit ) "
+    With Selection.Format.TextFrame2.TextRange.Characters(1, 11).ParagraphFormat
+        .TextDirection = msoTextDirectionLeftToRight
+        .Alignment = msoAlignCenter
+    End With
+    With Selection.Format.TextFrame2.TextRange.Characters(1, 1).Font
+        .BaselineOffset = 0
+        .Bold = msoFalse
+        .NameComplexScript = "+mn-cs"
+        .NameFarEast = "+mn-ea"
+        .Fill.Visible = msoTrue
+        .Fill.ForeColor.RGB = RGB(89, 89, 89)
+        .Fill.Transparency = 0
+        .Fill.Solid
+        .Size = 10
+        .Italic = msoFalse
+        .Kerning = 12
+        .Name = "+mn-lt"
+        .UnderlineStyle = msoNoUnderline
+        .Strike = msoNoStrike
+    End With
+    With Selection.Format.TextFrame2.TextRange.Characters(2, 10).Font
+        .BaselineOffset = 0
+        .Bold = msoFalse
+        .NameComplexScript = "+mn-cs"
+        .NameFarEast = "+mn-ea"
+        .Fill.Visible = msoTrue
+        .Fill.ForeColor.RGB = RGB(89, 89, 89)
+        .Fill.Transparency = 0
+        .Fill.Solid
+        .Size = 10
+        .Italic = msoFalse
+        .Kerning = 12
+        .Name = "+mn-lt"
+        .UnderlineStyle = msoNoUnderline
+        .Strike = msoNoStrike
+    End With
+    ActiveChart.ChartArea.Select
+   
+    ttt = 1
+End Function
