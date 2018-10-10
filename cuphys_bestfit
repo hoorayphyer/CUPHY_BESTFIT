@@ -90,6 +90,17 @@ Function CUPHYS_BestFit_Plot(xdata As Range, xerror As Range, ydata As Range, ye
     ActiveChart.FullSeriesCollection(1).Trendlines(1).DataLabel.Select
     Selection.Left = 246.817
     Selection.Top = 11.022
+    'add equations with the correct slope and intercept
+    Dim chi As Variant
+    ' Cannot use Set chi = ... here
+    chi = LinearLeastChiSquaredFit(xdata, xerror, ydata, yerror)
+    Dim slope, intercept, rsq As Double
+    slope = chi(2, 1) 'we don't use Set here because object is required. Doulbe is not an object
+    intercept = chi(2, 3)
+    ActiveChart.FullSeriesCollection(1).Trendlines(1).DataLabel.text = _
+        "y = " + Format(slope, "#0.00#") + "x + " + Format(intercept, "#0.00#") _
+        & Chr(13) & _
+        "R² = " + Format(Application.WorksheetFunction.rsq(ydata, xdata), "#0.0000#")
     'axes
     ActiveChart.Axes(xlValue).HasTitle = True
     ActiveChart.Axes(xlCategory).AxisTitle.Select
