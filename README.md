@@ -2,7 +2,7 @@
 
 ## How to install
 ### Fresh install
-1. Go to this [link](https://raw.githubusercontent.com/hoorayphyer/CUPhysLabToolkit/master/cuphys_bestfit), right click and choose Select All, right click and choose Copy
+1. Go to this [link](https://raw.githubusercontent.com/hoorayphyer/CUPhysLabToolkit/master/cuphys_bestfit.vba), right click and choose Select All, right click and choose Copy
 2. Open Excel, press Alt-F11 to go to Visual Basic Editor
 3. From the menu bar, click Insert -> Module
 4. Right click and choose Paste. Now you should see the code appear
